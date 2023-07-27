@@ -1,0 +1,34 @@
+{
+    "manifest_version": 3,
+    "name": "Website blocker",
+    "version": "0.1.0",
+    "web_accessible_resources": [
+        {
+          "resources": [ "*.png", "/img/*" ],
+          "matches": [ "https://open.spotify.com/*" ]
+        }, {
+          "resources": [ "test3.png", "test4.png" ],
+          "matches": [ "https://web-accessible-resources-2.glitch.me/*" ],
+          "use_dynamic_url": true
+        }
+      ],
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["Content.js"]
+        }
+    ],
+    "action": {
+      "default_popup": "Popup.html",
+      "default_title": "Procrastination Blocker",
+      "default_icon": {              // optional
+      "48": "img/icon48.png",   // optional
+      "128": "img/icon128.png"    // optional
+    }
+    },
+    "host_permissions": [
+      "https://www.mangakakalot.com/*",
+      "https://www.facebook.com/*",
+      "https://www.netflix.com/*"
+    ]
+}
