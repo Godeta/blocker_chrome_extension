@@ -1,5 +1,8 @@
 const generateSTYLES = () => {
     return `<style>@import url(https://fonts.googleapis.com/css?family=opensans:500);
+    img{
+      z-index: -1;
+    }
     body {
       background: #33cc99;
       color: #fff;
@@ -246,13 +249,12 @@ const generateSTYLES = () => {
     return `
      
      <div id="clouds">
-        <div class="cloud x1"></div>
-        <div class="cloud x1_5"></div>
-        <div class="cloud x2"></div>
-        <div class="cloud x3"></div>
-        <div class="cloud x4"></div>
-        <div class="cloud x5"></div>
         <img src=${url} alt="Joseph <3" class="joseph x1">
+        <img src=${url} alt="Joseph <3" class="joseph x1_5">
+        <img src=${url} alt="Joseph <3" class="joseph x2">
+        <img src=${url} alt="Joseph <3" class="joseph x3">
+        <img src=${url} alt="Joseph <3" class="joseph x4">
+        <img src=${url} alt="Joseph <3" class="joseph x5">
     </div>
     <div class='c'>
         <div class='_404'>404</div>
@@ -260,25 +262,14 @@ const generateSTYLES = () => {
         <div class='_1'>GET BACK TO WORK</div>
         <div class='_2'>STUDYING > ${pageName}</div>
     </div>
+    <img src=${url} alt="Joseph <3" class="joseph x1">
+    <img src=${url} alt="Joseph <3" class="joseph x1_5">
+    <img src=${url} alt="Joseph <3" class="joseph x2">
+    <img src=${url} alt="Joseph <3" class="joseph x3">
+    <img src=${url} alt="Joseph <3" class="joseph x4">
+    <img src=${url} alt="Joseph <3" class="joseph x5">
      `;
   };
-  
-
-  function block(){
-    document.head.innerHTML = generateSTYLES();
-    document.body.innerHTML = generateHTML("PB site");
-
-    let imgs = document.getElementsByTagName('img');
-
-    for(imgElt of imgs) {
-      imgElt.src = url;
-      alert("Joseph url : "+url);
-    }
-  }
-  
-  if(hostname.includes("manga") ==true || hostname.includes("scan") ==true || hostname.includes("hentai") ==true) {
-    block();
-  }
 
 
   //manage cookies
@@ -307,50 +298,53 @@ const generateSTYLES = () => {
   function checkCookie() {
     let user = getCookie("username");
     if (user != "") {
-      alert("Welcome again " + user);
+      alert("Bienvenu " + user);
     } else {
-      user = prompt("Please enter your name:", "");
+      user = prompt("Ecris ton nom:", "");
       if (user != "" && user != null) {
         setCookie("username", user, 365);
       }
     }
   } 
 
+//actions
+function block(){
+  document.head.innerHTML = generateSTYLES();
+  document.body.innerHTML = generateHTML("Procrastination");
+
+  let imgs = document.getElementsByTagName('img');
+
+  for(imgElt of imgs) {
+    imgElt.src = url;
+    // alert("Joseph url : "+url);
+  }
+}
+
   let stop = getCookie("stop");
   function overtime() {
     setCookie("stop",1,1);
   }
 
-
-  switch (hostname) {
-    case "www.netflix.com":
-      block();
-      break;
-    case "www.roblox.com":
-      block();
-      break;
-    case "discord.com":
-      block();
-      break;
-    case "www.mangakakalot.com":
-      block();
-    break;
-    case "www.youtube.com":
-      setTimeout(overtime, 3000*1000);
+  function limitedUse() {
+      setTimeout(overtime, 1000*60*15);
       if(overtime) {
         block();
       }
       checkCookie();
-    break;
+  }
 
+  let toBlock = "www.netflix.com" + "www.lectortmo.com";
+  let toLimit = "www.youtube.com" + "www.instagram.com";
 
-        /*
-        let imgs = document.getElementsByTagName('img');
+  //activate action depending on website
+  if(toBlock.includes(hostname) ) {
+    block();
+  }
+    
+  if(hostname.includes("manga") ==true || hostname.includes("scan") ==true || hostname.includes("hentai") ==true) {
+    block();
+  }
 
-        for(imgElt of imgs) {
-          let file = "img/joseph.png";
-          let url = chrome.extension.getURL(file);
-          imgElt.src = url;
-          alert("Joseph url : "+url);
-        }*/
+  else if (toLimit.includes(hostname)) {
+    limitedUse();
   }

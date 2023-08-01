@@ -1,7 +1,8 @@
 {
     "manifest_version": 3,
     "name": "Website blocker",
-    "version": "0.1.0",
+    "version": "0.2.0",
+    "description": "A web extension to take back control of our time using the power of jojo <3",
     "web_accessible_resources": [
         {
           "resources": [ "*.png", "/img/*" ],
@@ -19,15 +20,14 @@
         }
     ],
     "action": {
-      "default_popup": "Popup.html",
-      "default_title": "Procrastination Blocker",
-      "default_icon": {              // optional
-      "48": "img/icon48.png",   // optional
-      "128": "img/icon128.png"    // optional
-    }
+      "default_icon": {
+      "16": "img/dio48.png",
+      "24": "img/dio48.png",
+      "32": "img/dio48.png",
+      "48": "img/dio48.png",
+      "128": "img/dio128.png"
     },
-    "host_permissions": [
-      "https://www.mangakakalot.com/*",
-      "https://www.netflix.com/*"
-    ]
+    "default_popup": "Popup.html",
+    "default_title": "Procrastination Blocker \n Left-click to configure blocker !" 
+    }
 }
