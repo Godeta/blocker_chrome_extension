@@ -237,7 +237,10 @@ const generateSTYLES = () => {
 
   let file = "img/joseph.png";
   let url = chrome.runtime.getURL(file); //https://developer.chrome.com/docs/extensions/reference/runtime/#method-getURL et https://developer.chrome.com/docs/extensions/mv3/manifest/web_accessible_resources/
-  alert("Joseph url : "+url);
+  // alert("Joseph url : "+url);*
+  
+  let hostname = window.location.hostname;
+  // alert(hostname + " " + hostname.includes("manga") );
   
   const generateHTML = (pageName) => {
     return `
@@ -261,31 +264,86 @@ const generateSTYLES = () => {
   };
   
 
+  function block(){
+    document.head.innerHTML = generateSTYLES();
+    document.body.innerHTML = generateHTML("PB site");
 
-  switch (window.location.hostname) {
-    case "www.facebook.com":
-      document.head.innerHTML = generateSTYLES();
-      document.body.innerHTML = generateHTML("FACEBOOK");
-      break;
+    let imgs = document.getElementsByTagName('img');
+
+    for(imgElt of imgs) {
+      imgElt.src = url;
+      alert("Joseph url : "+url);
+    }
+  }
+  
+  if(hostname.includes("manga") ==true || hostname.includes("scan") ==true || hostname.includes("hentai") ==true) {
+    block();
+  }
+
+
+  //manage cookies
+  function setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    let expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+  
+  function getCookie(cname) {
+    let name = cname + "=";
+    let ca = document.cookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+  
+  function checkCookie() {
+    let user = getCookie("username");
+    if (user != "") {
+      alert("Welcome again " + user);
+    } else {
+      user = prompt("Please enter your name:", "");
+      if (user != "" && user != null) {
+        setCookie("username", user, 365);
+      }
+    }
+  } 
+
+  let stop = getCookie("stop");
+  function overtime() {
+    setCookie("stop",1,1);
+  }
+
+
+  switch (hostname) {
     case "www.netflix.com":
-      document.head.innerHTML = generateSTYLES();
-      document.body.innerHTML = generateHTML("NETFLIX");
+      block();
       break;
     case "www.roblox.com":
-      document.head.innerHTML = generateSTYLES();
-      document.body.innerHTML = generateHTML("ROBLOX");
+      block();
       break;
     case "discord.com":
-      document.head.innerHTML = generateSTYLES();
-      document.body.innerHTML = generateHTML("DISCORD");
+      block();
       break;
     case "www.mangakakalot.com":
-        document.head.innerHTML = generateSTYLES();
-        document.body.innerHTML = generateHTML("Scans");
+      block();
     break;
-    case "open.spotify.com":
-        document.head.innerHTML = generateSTYLES();
-        document.body.innerHTML = generateHTML("SPOTIFY");
+    case "www.youtube.com":
+      setTimeout(overtime, 3000*1000);
+      if(overtime) {
+        block();
+      }
+      checkCookie();
+    break;
+
+
         /*
         let imgs = document.getElementsByTagName('img');
 
@@ -295,5 +353,4 @@ const generateSTYLES = () => {
           imgElt.src = url;
           alert("Joseph url : "+url);
         }*/
-    break;
   }

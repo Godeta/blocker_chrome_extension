@@ -5,7 +5,7 @@
     "web_accessible_resources": [
         {
           "resources": [ "*.png", "/img/*" ],
-          "matches": [ "https://open.spotify.com/*" ]
+          "matches": [ "https://*/*" ]
         }, {
           "resources": [ "test3.png", "test4.png" ],
           "matches": [ "https://web-accessible-resources-2.glitch.me/*" ],
@@ -28,7 +28,6 @@
     },
     "host_permissions": [
       "https://www.mangakakalot.com/*",
-      "https://www.facebook.com/*",
       "https://www.netflix.com/*"
     ]
 }
