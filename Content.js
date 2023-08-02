@@ -297,8 +297,10 @@ const generateSTYLES = () => {
   
   function checkCookie() {
     let user = getCookie("username");
+    let stop = getCookie("stop");
+    let jo = getCookie("jojo");
     if (user != "") {
-      alert("Bienvenu " + user);
+      alert("Bienvenu " + user + " stop "+ stop+" jo " +jo);
     } else {
       user = prompt("Ecris ton nom:", "");
       if (user != "" && user != null) {
@@ -327,7 +329,7 @@ function block(){
 
   function limitedUse() {
       setTimeout(overtime, 1000*60*15);
-      if(overtime) {
+      if(stop) {
         block();
       }
       checkCookie();
